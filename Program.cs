@@ -36,7 +36,8 @@ namespace oyasumi_lazer
                     switch (request.Url.AbsolutePath)
                     {
                         case "/oauth/token":
-                            await response.OutputStream.WriteAsync(Encoding.UTF8.GetBytes(OAuth.Generate()), 0, Encoding.UTF8.GetBytes(OAuth.Generate()).Length);
+                            var token = OAuth.Generate();
+                            await response.OutputStream.WriteAsync(Encoding.UTF8.GetBytes(token), 0, Encoding.UTF8.GetBytes(token).Length);
                             break;
                         default:
                             XConsole.PrintInfo($"Unknown requested path: {request.Url.AbsolutePath}");
