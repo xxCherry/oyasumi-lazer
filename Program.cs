@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using oyasumi_lazer.Handlers;
+using HttpMultipartParser;
 
 
 namespace oyasumi_lazer
@@ -31,13 +32,18 @@ namespace oyasumi_lazer
                 XConsole.PrintInfo(request.Url.AbsolutePath);
                 if (request.HttpMethod == "POST")
                 {
-                    using var sr = new StreamReader(request.InputStream);
-                    XConsole.PrintInfo(await sr.ReadToEndAsync());
+                    var stream = request.InputStream;
+                    /*using var sr = new StreamReader(stream);
+                    var body = sr.ReadToEnd(); */
                     switch (request.Url.AbsolutePath)
                     {
                         case "/oauth/token":
-                            var token = OAuth.Generate();
+                            var parser = await MultipartFormDataParser.ParseAsync(stream).ConfigureAwait(false);
+                            var token = OAuth.Generate(parser.GetParameterValue("username"), parser.GetParameterValue("password"));
                             await response.OutputStream.WriteAsync(Encoding.UTF8.GetBytes(token), 0, Encoding.UTF8.GetBytes(token).Length);
+                            break;
+                        case "/v2/me":
+
                             break;
                         default:
                             XConsole.PrintInfo($"Unknown requested path: {request.Url.AbsolutePath}");
@@ -45,8 +51,6 @@ namespace oyasumi_lazer
                     }
                     response.Close();
                 }
-
-                
             }
         }
     }
