@@ -4,8 +4,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using oyasumi_lazer.Handlers;
+using oyasumi_lazer.Objects;
 using HttpMultipartParser;
-
+using Newtonsoft.Json;
 
 namespace oyasumi_lazer
 {
@@ -16,6 +17,15 @@ namespace oyasumi_lazer
             var listener = new HttpListener();
             listener.Prefixes.Add("http://+:5005/");
             listener.Start();
+            if (!File.Exists("config.json"))
+            {
+                File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigScheme
+                {
+                    Database = "oyasumi",
+                    Username = "root",
+                    Password = ""
+                }));
+            }
             XConsole.PrintInfo("oyasumi!lazer - custom server for osu!lazer\n  by Cherry, 2020");
             while (true)
             {
@@ -43,7 +53,6 @@ namespace oyasumi_lazer
                             await response.OutputStream.WriteAsync(Encoding.UTF8.GetBytes(token), 0, Encoding.UTF8.GetBytes(token).Length);
                             break;
                         case "/v2/me":
-
                             break;
                         default:
                             XConsole.PrintInfo($"Unknown requested path: {request.Url.AbsolutePath}");

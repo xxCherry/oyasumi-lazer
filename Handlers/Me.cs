@@ -4,7 +4,11 @@ using System.Text;
 
 namespace oyasumi_lazer.Handlers
 {
-    class Me
+    public class Me
     {
+        public void Get()
+        {
+
+        }
     }
 }

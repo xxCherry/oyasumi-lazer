@@ -8,17 +8,17 @@ namespace oyasumi_lazer.Handlers
 { 
     internal class OAuth
     {
-        public static List<Player> PlayerList = new List<Player>();
+        public static List<User> PlayerList = new List<User>();
         public static string Generate(string username, string password)
         {
-
             var token = new OAuthScheme
             {
                 AccessToken = Guid.NewGuid().ToString(),
                 ExpiresIn = DateTime.Now.AddDays(7).Ticks,
                 RefreshToken = Guid.NewGuid().ToString()
             };
-            var player = new Player(1, token);
+            var player = new User();
+            
             PlayerList.Add(player);
             return JsonConvert.SerializeObject(token);
         }
