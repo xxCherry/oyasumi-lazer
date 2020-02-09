@@ -8,28 +8,27 @@ namespace oyasumi_lazer
 	{
 		public const string PAD = "    "; // four spaces
 
-		public static int WriteLine()
+		public static void WriteLine()
 		{
 			Console.WriteLine();
-			return 1;
 		}
 
-		public static int WriteLine(object value) =>
+		public static void WriteLine(object value) =>
 			WriteColored(value.ToString(), true);
 
-		public static int WriteLine(string value) =>
+		public static void WriteLine(string value) =>
 			WriteColored(value, true);
 
-		public static int WriteLine(string value, params object[] args) =>
+		public static void WriteLine(string value, params object[] args) =>
 			WriteColored(string.Format(value, args), true);
 
-		public static int Write(string value) =>
+		public static void Write(string value) =>
 			WriteColored(value);
 
-		public static int Write(string value, params object[] args) =>
+		public static void Write(string value, params object[] args) =>
 			WriteColored(string.Format(value, args));
 
-		private static int WriteColored(string value, bool newLine = false)
+		private static void WriteColored(string value, bool newLine = false)
 		{
 			var str = string.Empty;
 			var prevForeColor = Console.ForegroundColor;
@@ -78,7 +77,6 @@ namespace oyasumi_lazer
 			Console.ForegroundColor = prevForeColor;
 			Console.BackgroundColor = prevBackColor;
 
-			return 1;
 		}
 
 		public static string Fatal(string value) =>
@@ -93,28 +91,28 @@ namespace oyasumi_lazer
 		public static string Warn(string value) =>
 			"[\u0016W\u0001] " + " [" + DateTime.Now.ToString("T", DateTimeFormatInfo.InvariantInfo) + "] " + value;
 
-		public static int PrintFatal(string value, bool newLine) =>
+		public static void PrintFatal(string value, bool newLine) =>
 			WriteColored(Fatal(value), newLine);
 
-		public static int PrintError(string value, bool newLine) =>
+		public static void PrintError(string value, bool newLine) =>
 			WriteColored(Error(value), newLine);
 
-		public static int PrintInfo(string value, bool newLine) =>
+		public static void PrintInfo(string value, bool newLine) =>
 			WriteColored(Info(value), newLine);
 
-		public static int PrintWarn(string value, bool newLine) =>
+		public static void PrintWarn(string value, bool newLine) =>
 			WriteColored(Warn(value), newLine);
 
-		public static int PrintFatal(string value, params object[] args) =>
+		public static void PrintFatal(string value, params object[] args) =>
 			WriteLine(Fatal(value), args);
 
-		public static int PrintError(string value, params object[] args) =>
+		public static void PrintError(string value, params object[] args) =>
 			WriteLine(Error(value), args);
 
-		public static int PrintInfo(string value, params object[] args) =>
+		public static void PrintInfo(string value, params object[] args) =>
 			WriteLine(Info(value), args);
 
-		public static int PrintWarn(string value, params object[] args) =>
+		public static void PrintWarn(string value, params object[] args) =>
 			WriteLine(Warn(value), args);
 	}
 }

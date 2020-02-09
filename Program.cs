@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using oyasumi_lazer.Handlers;
 
@@ -14,7 +15,7 @@ namespace oyasumi_lazer
             var listener = new HttpListener();
             listener.Prefixes.Add("http://+:5005/");
             listener.Start();
-            Console.WriteLine("oyasumi!lazer - custom server for osu!lazer\nby Cherry, 2020");
+            XConsole.PrintInfo("oyasumi!lazer - custom server for osu!lazer\n  by Cherry, 2020");
             while (true)
             {
                 var context = await listener.GetContextAsync();
@@ -26,16 +27,21 @@ namespace oyasumi_lazer
                 response.StatusCode = 200;
                 response.AddHeader("Content-Type", "text/json; charset=UTF-8");
                 foreach (var k in request.Headers.AllKeys) headers += k + ":" + " " + request.Headers[k] + "\n";
-                var path = request.Url.AbsolutePath switch
-                {
-                    "/oauth/token" => OAuth.Generate(),
-                };
                 XConsole.PrintInfo(headers);
                 XConsole.PrintInfo(request.Url.AbsolutePath);
                 if (request.HttpMethod == "POST")
                 {
                     using var sr = new StreamReader(request.InputStream);
                     XConsole.PrintInfo(await sr.ReadToEndAsync());
+                    switch (request.Url.AbsolutePath)
+                    {
+                        case "/oauth/token":
+                            await response.OutputStream.WriteAsync(Encoding.UTF8.GetBytes(OAuth.Generate()), 0, Encoding.UTF8.GetBytes(OAuth.Generate()).Length);
+                            break;
+                        default:
+                            XConsole.PrintInfo($"Unknown requested path: {request.Url.AbsolutePath}");
+                            break;
+                    }
                     response.Close();
                 }
 
