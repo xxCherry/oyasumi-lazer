@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "oyasumi-lazer", "oyasumi-lazer.csproj", "{574C9EC8-DEF8-49E2-9AC8-EB03C63D60EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{574C9EC8-DEF8-49E2-9AC8-EB03C63D60EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{574C9EC8-DEF8-49E2-9AC8-EB03C63D60EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{574C9EC8-DEF8-49E2-9AC8-EB03C63D60EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{574C9EC8-DEF8-49E2-9AC8-EB03C63D60EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F4F8DF5-DF79-4E21-B644-67222C601201}
+	EndGlobalSection
+EndGlobal
