@@ -14,7 +14,7 @@ namespace oyasumi_lazer.Database
         { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           optionsBuilder.UseMySql($"server=localhost;database={Config.Get<ConfigScheme>().Database};user={Config.Get<ConfigScheme>().Username};password={Config.Get<ConfigScheme>().Password}");
+           optionsBuilder.UseMySql($"server=localhost;database={Config.Get().Database};user={Config.Get().Username};password={Config.Get().Password}");
         }
     }
 }

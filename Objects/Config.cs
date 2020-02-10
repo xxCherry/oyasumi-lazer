@@ -14,7 +14,7 @@ namespace oyasumi_lazer.Objects
         public string Password;
     }
     public class Config {
-        public static ConfigScheme Get<CohfigScheme>()
+        public static ConfigScheme Get()
         {
             return JsonConvert.DeserializeObject<ConfigScheme>(File.ReadAllText("config.json"));
         }
