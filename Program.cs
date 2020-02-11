@@ -7,6 +7,8 @@ using oyasumi_lazer.Handlers;
 using oyasumi_lazer.Objects;
 using HttpMultipartParser;
 using Newtonsoft.Json;
+using oyasumi_lazer.Database;
+using static oyasumi_lazer.Database.OyasumiDbContext;
 
 namespace oyasumi_lazer
 {
@@ -14,6 +16,15 @@ namespace oyasumi_lazer
     {
         private static async Task Main(string[] args)
         {
+            using var db = new OyasumiDbContext();
+            var user = new Users 
+            { 
+                Username = "test",
+                Country = "RU",
+                Password = "dbtest"
+            };
+            db.DBUsers.Add(user);
+            await db.SaveChangesAsync();
             var listener = new HttpListener();
             listener.Prefixes.Add("http://+:5005/");
             listener.Start();
